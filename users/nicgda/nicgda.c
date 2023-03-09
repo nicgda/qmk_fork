@@ -78,13 +78,6 @@ void save_nic_mode(void) {
 // Returns true if the event needs to be process by the default handler.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MCTL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F); // Misson Control
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
         case KC_NTGL:
             if (record->event.pressed) {
                 set_nic_mode(!nic_mode);
