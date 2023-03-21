@@ -34,6 +34,9 @@ uint8_t nic_val = 255;
 bool nic_matrix_was_enabled = false;
 
 
+#if defined(RGB_MATRIX_ENABLE) | defined(RGBLIGHT_ENABLE)
+// RGB Support
+
 void set_nic_mode(bool on) {
     if(on) {
 #if defined(RGB_MATRIX_ENABLE)
@@ -66,13 +69,19 @@ void set_nic_mode(bool on) {
     }
 }
 
-
 void save_nic_mode(void) {
     user_config.hue = nic_hue;
     user_config.sat = nic_sat >> 4;
     user_config.val = nic_val >> 4;
     eeconfig_update_user(user_config.raw);
 }
+
+#else
+// No RGB
+#define set_nic_mode(on) (nic_mode = on)
+#define save_nic_mode()
+
+#endif
 
 // QMK: Process key events
 // Returns true if the event needs to be process by the default handler.
@@ -137,7 +146,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     raw_hid_send(data, length);
 }
 
-
+#if defined(RGB_MATRIX_ENABLE) | defined(RGBLIGHT_ENABLE)
 // QMK: Handle RBG Matrix update
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #if defined(RGB_MATRIX_ENABLE) // Eventually also LED_MATRIX_ENABLE
@@ -182,20 +191,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 }
+#endif // RGB support
 
-
-//
-void encoder_action_hsv_change(bool clockwise, uint8_t hue, uint8_t sat, uint8_t val) {
-     if (clockwise) {
-        nic_hue += hue;
-        if(((nic_sat + sat) & 0xFF) > nic_sat) nic_sat += sat;
-        if(((nic_val + val) & 0xFF) > nic_val) nic_val += val;
-     } else {
-        nic_hue -= hue;
-        if(((nic_sat - sat) & 0xFF) < nic_sat) nic_sat -= sat;
-        if(((nic_val - val) & 0xFF) < nic_val) nic_val -= val;
-     }
- }
 
 
 // QMK: Post init customization
@@ -220,6 +217,20 @@ void keyboard_post_init_user(void) {
 
 
 #ifdef ENCODER_ENABLE
+//
+void encoder_action_hsv_change(bool clockwise, uint8_t hue, uint8_t sat, uint8_t val) {
+     if (clockwise) {
+        nic_hue += hue;
+        if(((nic_sat + sat) & 0xFF) > nic_sat) nic_sat += sat;
+        if(((nic_val + val) & 0xFF) > nic_val) nic_val += val;
+     } else {
+        nic_hue -= hue;
+        if(((nic_sat - sat) & 0xFF) < nic_sat) nic_sat -= sat;
+        if(((nic_val - val) & 0xFF) < nic_val) nic_val -= val;
+     }
+ }
+
+
 /*
  * Encoder behaviour.
  * Return false to prevent default behaviour.
