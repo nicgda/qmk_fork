@@ -9,7 +9,7 @@
  * This is a community project to let jris65 owner easily use QMK  *
  * on their keyboards, as intended when they bought it.            *
  *******************************************************************/
-#include QMK_KEYBOARD_H
+#include "nicgda.h"
 
 /* Keymap
         `        1        2        3        4        5        6        7        8        9        0         -       =        BackSpc  Del
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            XXXXXXX,                   _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [2] = LAYOUT_65_ansi(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, QK_BOOT,
+        KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_F16,  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, QK_BOOT,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_NTGL, XXXXXXX,
         _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX,
