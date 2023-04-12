@@ -3,6 +3,7 @@ Nicolas' (nicgda) read me
 # Keyboards
 - gmmk/pro/rev1/ansi/keymaps/nicgda/
 - idobao/id80/v2/ansi/keymaps/nicgda/
+- jris_ce/jris65/keymaps/nicgda/
 
 Being a mac user, the keymap are configured accordingly... almost.
 
@@ -18,6 +19,8 @@ and the volumes (F11 and F12).
 ./util/docker_build.sh gmmk/pro/rev1/ansi:nicgda
 
 ./util/docker_build.sh idobao/id80/v2/ansi:nicgda
+
+./util/docker_build.sh jris_ce/jris65:nicgda
 
 # Features
 
