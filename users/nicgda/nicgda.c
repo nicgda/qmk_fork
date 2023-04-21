@@ -108,6 +108,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 save_nic_mode();
             }
             return false;
+        case KC_F17:
+            if (record->event.pressed) {
+                set_nic_mode(true);
+            }
+            return false;
+        case KC_F18:
+            if (record->event.pressed) {
+                set_nic_mode(false);
+            }
+            return false;
         default:
             return true; /* Process all other keycodes normally */
     }
