@@ -86,6 +86,10 @@ void save_nic_mode(void) {
 // QMK: Process key events
 // Returns true if the event needs to be process by the default handler.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef WITH_ESC_TILDE
+    static uint16_t esc_tilde_keycode = KC_ESC;
+#endif // WITH_ESC_TILDE
+
     switch (keycode) {
         case KC_NTGL:
             if (record->event.pressed) {
@@ -118,6 +122,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_nic_mode(false);
             }
             return true;
+#ifdef WITH_ESC_TILDE
+        case KC_ESC:
+            if (record->event.pressed) {
+                uint16_t mods = get_mods();
+                if (mods & MOD_MASK_SHIFT) {
+                    esc_tilde_keycode = KC_TILDE;
+                } else if (mods && MOD_MASK_GUI) {
+                    esc_tilde_keycode = KC_GRAVE;
+                } else {
+                    esc_tilde_keycode = KC_ESC;
+                }
+                register_code(esc_tilde_keycode);
+            } else {
+                unregister_code(esc_tilde_keycode);
+            }
+            return false;
+#endif // WITH_ESC_TILDE
         default:
             return true; /* Process all other keycodes normally */
     }
