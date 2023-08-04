@@ -228,6 +228,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 // QMK: Post init customization
 void keyboard_post_init_user(void) {
+    bool save = false;
 #if defined(RGB_MATRIX_ENABLE)
     // Needed for the GMMK Pro, to have the leds off.
     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
@@ -235,6 +236,13 @@ void keyboard_post_init_user(void) {
 #endif
 
     user_config.raw = eeconfig_read_user();
+    if(user_config.raw == 0) {
+        // Set some default values
+        user_config.hue = 0xEA;
+        user_config.sat = 0xF;
+        user_config.val = 0xF;
+        save = true;
+    }
     nic_hue = user_config.hue;
     nic_sat = user_config.sat << 4;
     if(nic_sat) {
@@ -243,6 +251,9 @@ void keyboard_post_init_user(void) {
     nic_val = user_config.val << 4;
     if(nic_val) {
         nic_val |= 0xF;
+    }
+    if(save) {
+        save_nic_mode();
     }
 }
 
