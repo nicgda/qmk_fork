@@ -118,3 +118,8 @@ To use this feature, just add
     #define WITH_ESC_TILDE
     
 in the *config.h* file next to your *keymap.c*.
+
+# The litthe thing I always forget
+
+git rebase --onto 0.23.3 0.22.12
+
