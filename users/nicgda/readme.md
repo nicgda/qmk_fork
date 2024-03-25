@@ -5,6 +5,7 @@ Nicolas' (nicgda) read me
 - gmmk/pro/rev1/ansi/keymaps/nicgda/
 - idobao/id80/v2/ansi/keymaps/nicgda/
 - jris_ce/jris65/keymaps/nicgda/
+- mkc_ce/mkc75/keymaps/nicgda/
 
 Being a mac user, the keymap are configured accordingly... almost.
 
@@ -23,6 +24,8 @@ and the volumes (F11 and F12).
 
 ./util/docker_build.sh jris_ce/jris65:nicgda
 
+./util/docker_build.sh mkc_ce/mkc75:nicgda
+
 # Features
 
 The common code is in the users/nicgda/ directory.
@@ -39,7 +42,7 @@ Using a single custom keycode (`KC_NTGL`), the F17/F18 is sent depending on
 the current state of the nic mode. The process_record_user() function
 handling this is in the common nicgda.c file.
 
-For the notification, the underglow is used on the ID80 (rgb light) and 
+For the notification, the underglow is used on the ID80 and mkc75 (rgb light) and 
 the side leds on the GMMK pro (rgd matrix).
 
 ### HID communication
@@ -119,7 +122,7 @@ To use this feature, just add
     
 in the *config.h* file next to your *keymap.c*.
 
-# The litthe thing I always forget
+# The little thing I always forget
 
 git rebase --onto 0.23.3 0.22.12
 
