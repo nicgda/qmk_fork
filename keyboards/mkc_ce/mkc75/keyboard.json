@@ -39,7 +39,11 @@
             "snake": true,
             "static_gradient": true,
             "alternating": true,
-        }
+        },
+        "default": {
+            "on": false
+        },
+        "driver": "ws2812"
     },
     "qmk": {
         "tap_keycode_delay": 5

@@ -33,6 +33,8 @@ uint8_t nic_sat = 255;
 uint8_t nic_val = 255;
 bool nic_matrix_was_enabled = false;
 
+static void apply_colour(void);
+
 
 #if defined(RGB_MATRIX_ENABLE) | defined(RGBLIGHT_ENABLE)
 // RGB Support
@@ -55,6 +57,7 @@ void set_nic_mode(bool on) {
         // No need to change the colour here, I guess.
 #endif
         nic_mode = true;
+        apply_colour();
     } else {
         if(nic_mode) {
             if(!nic_matrix_was_enabled) {
@@ -160,6 +163,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     nic_hue = data[4];
                     nic_sat = data[5];
                     nic_val = data[6];
+
+                    apply_colour();
                 }
                 break;
             case HNC_GET:
@@ -207,18 +212,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif // RGB_MATRIX_ENABLE
 
     if(nic_mode) {
-        // Set side leds.
-        HSV hsv = {nic_hue, nic_sat, nic_val};
-        RGB rgb = hsv_to_rgb(hsv);
-#if defined(RGB_MATRIX_ENABLE)
-        for (uint8_t index = led_min; index < led_max; index++) {
-            if (g_led_config.flags[index] & LED_FLAG_UNDERGLOW) {
-                rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
-            }
-        }
-#elif defined(RGBLIGHT_ENABLE)
-        rgblight_setrgb(rgb.r, rgb.g, rgb.b);
-#endif
+        apply_colour();
     }
     return false;
 }
@@ -324,3 +318,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;  // To prevent the default behaviour
 }
 #endif // ENCODER_ENABLE
+
+static void apply_colour(void) {
+// Set side leds.
+    HSV hsv = {nic_hue, nic_sat, nic_val};
+    RGB rgb = hsv_to_rgb(hsv);
+#if defined(RGB_MATRIX_ENABLE)
+    for (uint8_t index = led_min; index < led_max; index++) {
+        if (g_led_config.flags[index] & LED_FLAG_UNDERGLOW) {
+            rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
+        }
+    }
+#elif defined(RGBLIGHT_ENABLE)
+    rgblight_setrgb(rgb.r, rgb.g, rgb.b);
+#endif
+}
