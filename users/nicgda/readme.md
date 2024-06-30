@@ -6,6 +6,7 @@ Nicolas' (nicgda) read me
 - idobao/id80/v2/ansi/keymaps/nicgda/
 - jris_ce/jris65/keymaps/nicgda/
 - mkc_ce/mkc75/keymaps/nicgda/
+- neo/neo80_hotswap/keymaps/nicgda/
 
 Being a mac user, the keymap are configured accordingly... almost.
 
@@ -25,6 +26,8 @@ and the volumes (F11 and F12).
 ./util/docker_build.sh jris_ce/jris65:nicgda
 
 ./util/docker_build.sh mkc_ce/mkc75:nicgda
+
+./util/docker_build.sh neo/neo80_hotswap:nicgda
 
 # Features
 
