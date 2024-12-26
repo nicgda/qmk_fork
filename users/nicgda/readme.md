@@ -19,6 +19,8 @@ and the volumes (F11 and F12).
 
 # Build
 
+./util/docker_build.sh cmm_studio/saka68/hotswap:nicgda
+
 ./util/docker_build.sh gmmk/pro/rev1/ansi:nicgda
 
 ./util/docker_build.sh idobao/id80/v2/ansi:nicgda
