@@ -1,5 +1,6 @@
 #include "nicgda.h"
 #include "raw_hid.h"
+#include "color.h"
 
 // GMMK Pro
 //   RGB_MATRIX_ENABLE = yes
@@ -321,15 +322,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 static void apply_colour(void) {
 // Set side leds.
+#if defined(RGB_MATRIX_ENABLE)
     HSV hsv = {nic_hue, nic_sat, nic_val};
     RGB rgb = hsv_to_rgb(hsv);
-#if defined(RGB_MATRIX_ENABLE)
     for (uint8_t index = led_min; index < led_max; index++) {
         if (g_led_config.flags[index] & LED_FLAG_UNDERGLOW) {
             rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
         }
     }
 #elif defined(RGBLIGHT_ENABLE)
+    HSV hsv = {nic_hue, nic_sat, nic_val};
+    RGB rgb = hsv_to_rgb(hsv);
     rgblight_setrgb(rgb.r, rgb.g, rgb.b);
 #endif
 }
