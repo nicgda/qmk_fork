@@ -19,6 +19,8 @@ and the volumes (F11 and F12).
 
 # Build
 
+On macOS, prefix with : `SKIP_FLASHING_SUPPORT=1`
+
 ./util/docker_build.sh cmm_studio/saka68/hotswap:nicgda
 
 ./util/docker_build.sh gmmk/pro/rev1/ansi:nicgda
