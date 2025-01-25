@@ -2,6 +2,7 @@ Nicolas' (nicgda) read me
 
 # Keyboards
 
+- cmm_studio/saka68/solder/keymaps/nicgda/
 - gmmk/pro/rev1/ansi/keymaps/nicgda/
 - idobao/id80/v2/ansi/keymaps/nicgda/
 - jris_ce/jris65/keymaps/nicgda/
@@ -21,7 +22,7 @@ and the volumes (F11 and F12).
 
 On macOS, prefix with : `SKIP_FLASHING_SUPPORT=1`
 
-./util/docker_build.sh cmm_studio/saka68/hotswap:nicgda
+./util/docker_build.sh cmm_studio/saka68/solder:nicgda
 
 ./util/docker_build.sh gmmk/pro/rev1/ansi:nicgda
 
