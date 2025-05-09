@@ -95,34 +95,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // WITH_ESC_TILDE
 
     switch (keycode) {
-        case KC_NTGL:
-            if (record->event.pressed) {
-                set_nic_mode(!nic_mode);
-                if(nic_mode) {
-                    register_code(KC_F17);
-                } else {
-                    register_code(KC_F18);
-                }
-            } else {
-                if(nic_mode) {
-                    unregister_code(KC_F17);
-                } else {
-                    unregister_code(KC_F18);
-                }
-            }
-            return false;
+        // case KC_NTGL:
+        //     if (record->event.pressed) {
+        //         set_nic_mode(!nic_mode);
+        //         if(nic_mode) {
+        //             register_code(KC_F17);
+        //         } else {
+        //             register_code(KC_F18);
+        //         }
+        //     } else {
+        //         if(nic_mode) {
+        //             unregister_code(KC_F17);
+        //         } else {
+        //             unregister_code(KC_F18);
+        //         }
+        //     }
+        //     return false;
         case KC_NSAV:
             if (record->event.pressed) {
                 save_nic_mode();
             }
             return false;
-        case KC_F17:
-            if (record->event.pressed) {
+        case KC_T:
+            if (record->event.pressed && (get_mods() & MOD_MASK_CSAG)) {
                 set_nic_mode(true);
             }
             return true;
-        case KC_F18:
-            if (record->event.pressed) {
+        case KC_S:
+            if (record->event.pressed && (get_mods() & MOD_MASK_CSAG)) {
                 set_nic_mode(false);
             }
             return true;
